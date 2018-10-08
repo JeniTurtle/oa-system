@@ -1,4 +1,4 @@
-# htmlvi办公OA系统
+# 办公OA系统
 
 ### 安装说明
 1、环境要求：可以运行在Win/Linux系统下，php5.3+，mysql5.3+  
