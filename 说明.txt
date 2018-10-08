@@ -3,12 +3,7 @@
 ### 安装说明
 1、环境要求：可以运行在Win/Linux系统下，php5.3+，mysql5.3+  
 2、测试环境搭建：phpstudy2014
-3、将htmlvi_oa.sql导入MYSQL数据库   然后修改配置文件：webmain/webmainConfig.php，填写数据库账号密码信息    
+3、将sql文件导入MYSQL数据库   然后修改配置文件：webmain/webmainConfig.php，填写数据库账号密码信息    
 4、打开浏览器访问：http://您的地址/  
- 
 
-
-1、htmlvi_oa系统(后台/手机网页版/REIM)  
-2、htmlvi_oa服务端(即时通信，计划任务使用)  
-3、REIM即时通信PC客户端  
 
