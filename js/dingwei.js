@@ -162,11 +162,24 @@ js.dw = {
 		js.dw.ondwerr(msg);
 	},
 
-	showPosition2:function(position){
+	showPosition2:function(position) {
 		var latitude = position.lat;
 		var longitude = position.lng;
 		var accuracy = position.accuracy;
 		var address = position.addr;
+
+		var lat = getUrlParam('lat');
+		var lon = getUrlParam('lon');
+		var addr = getUrlParam('addr') || "";
+		var accu = getUrlParam('accuracy') || "200";
+
+		if (lat && lon) {
+			latitude = lat;
+			longitude = lon;
+			address = addr;
+			accuracy = accu;
+		}
+
 		js.dw.dwsuccess({
 			latitude:latitude,
 			longitude:longitude,
@@ -194,10 +207,18 @@ js.dw = {
 		var center 	= new qq.maps.LatLng(lat, lng);
 		this.geocoderObj.getAddress(center);
 		this.geocoderObj.setComplete(function(result){
+
 			var dzarr 	= result.detail.addressComponents;
 			var address 	= ''+dzarr.province+''+dzarr.city+''+dzarr.district+''+dzarr.street+'';
-			if(dzarr.streetnumber)address+=dzarr.streetnumber;
-			addressinfo = address + " " + addr;
+
+			if (addr == "" && result.detail && result.detail.nearPois && result.detail.nearPois.length > 0) {
+				var addressinfo = address = result.detail.nearPois[0]['address'];
+
+			} else {
+				if(dzarr.streetnumber)address+=dzarr.streetnumber;
+				var addressinfo = address + " " + addr;
+			}
+
 			js.msg();
 			js.dw.ondwcall({
 				latitude:lat,
@@ -228,4 +249,13 @@ appbacklocation=function(res){
 		longitude:longitude,
 		accuracy:accuracy
 	});
+}
+
+//获取url中的参数
+function getUrlParam(name) {
+	var uri = encodeURI(window.location.search.substr(1));
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+	var r = uri.match(reg);  //匹配目标参数
+
+	if (r != null) return decodeURI(unescape(r[2])); return null; //返回参数值
 }

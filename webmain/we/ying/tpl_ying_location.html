@@ -15,9 +15,11 @@
 <script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&libraries=convertor,geometry"></script>
 <script type="text/javascript" src="https://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js"></script>
 <script type="text/javascript" src="js/dingwei.js"></script>
-<style>
-
-</style>
+	<style>
+		.weui_tabbar_icon{text-align:center;color:#888888;font-size:20px;}
+		.weui_tabbar_item{padding-top:2px;margin-bottom:5px;position:relative}
+		.weui_bar_item_on .weui_tabbar_icon{color:#1389D3}
+	</style>
 <script>
 //考勤信息
 var kqrs = <?=json_encode($kqrs);?>,kqors = <?=json_encode($kqors);?>,kqallrs=[],isgzh = <?=$isgzh?>;
@@ -235,6 +237,12 @@ function changfile(o1){
 function showimgs(o1){
 	$.imgview({'url':o1.src,'ismobile':true});
 }
+function changetab(lx){
+	var url='?d=we&m=ying&a=daka';
+	if(lx==2)url='?m=ying&d=we&num=kqtotal';
+	if(lx==3)url='?m=ying&d=we&num=kqpai';
+	js.location(url);
+}
 </script>
 <style>
 .addbtnss{position:absolute;right:10px;bottom:10px;width:80px;height:80px; background:rgba(0,0,0,0.5);z-index:1;border-radius:50%;font-size:14px;color:white;text-align:center}
@@ -290,6 +298,34 @@ function showimgs(o1){
 		?>
 	</div>
 	<div class="blank10"></div>
+</div>
+
+<div style="height:55px; overflow:hidden"></div>
+<div style="height:55px;overflow:hidden;z-index:2;position:fixed" class="weui_tabbar">
+	<a href="javascript:;"  onclick="changetab(0)" class="weui_tabbar_item">
+		<div class="weui_tabbar_icon">
+			<i class="icon-time"></i>
+		</div>
+		<p class="weui_tabbar_label"><?=$da['title']?></p>
+	</a>
+	<a href="javascript:;" class="weui_bar_item_on weui_tabbar_item">
+		<div class="weui_tabbar_icon">
+			<i class="icon-fighter-jet"></i>
+		</div>
+		<p class="weui_tabbar_label">外勤定位</p>
+	</a>
+	<a href="javascript:;" onclick="changetab(2)" class="weui_tabbar_item">
+		<div class="weui_tabbar_icon">
+			<i class="icon-bar-chart"></i>
+		</div>
+		<p class="weui_tabbar_label">考勤统计</p>
+	</a>
+	<a href="javascript:;" onclick="changetab(3)" class="weui_tabbar_item">
+		<div class="weui_tabbar_icon">
+			<i class="icon-list-alt"></i>
+		</div>
+		<p class="weui_tabbar_label">我的排班</p>
+	</a>
 </div>
 <script type="text/javascript" src="web/res/js/jquery-imgview.js"></script>
 </body>
